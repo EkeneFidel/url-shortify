@@ -33,7 +33,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/url", urlRouter);
 app.get("/", async (req, res) => {
-    res.send();
+    res.send(req.ip);
 });
 app.get("/:urlCode", async (req, res) => {
     const urlCode = req.params.urlCode;
