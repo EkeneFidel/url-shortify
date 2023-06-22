@@ -291,6 +291,10 @@ nav svg {
     color: #001c30;
 }
 
+.emphasis {
+    color: #176b87;
+}
+
 .jumbo-btn {
     margin-top: 30px;
     margin-bottom: 50px;

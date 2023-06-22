@@ -45,7 +45,7 @@ app.set("views", path.join(__dirname, "/src/views"));
 app.use("/url", verifyToken, urlRouter);
 app.use("/auth", authRouter);
 app.get("/", async (req, res) => {
-    res.render("dashboard");
+    res.render("landing");
 });
 app.get("/:urlCode", async (req, res) => {
     const ipStatus = ipaddrJs.parse(req.ip).range();
