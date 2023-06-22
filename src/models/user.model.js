@@ -7,12 +7,6 @@ const Schema = mongoose.Schema;
 // Define user schema
 const userSchema = new Schema(
     {
-        firstName: {
-            type: String,
-        },
-        lastName: {
-            type: String,
-        },
         userName: {
             type: String,
             required: true,

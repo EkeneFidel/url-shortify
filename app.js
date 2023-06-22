@@ -4,15 +4,22 @@ const morgan = require("morgan");
 const cors = require("cors");
 const rateLimit = require("express-rate-limit");
 const helmet = require("helmet");
+const ipaddrJs = require("ipaddr.js");
+const path = require("path");
 
 require("dotenv").config();
 
 const db = require("./src/config/mongoDb.config");
+const authRouter = require("./src/routes/auth.routes");
 const urlRouter = require("./src/routes/url.routes");
 const urlModel = require("./src/models/url.model");
 const getLocation = require("./src/utils/getLocation");
+const redisClient = require("./src/config/redis.config");
+const { verifyToken } = require("./src/utils/auth.utils");
 
-db.connectToMongoDB();
+(async () => {
+    await db.connectToMongoDB();
+})();
 const PORT = process.env.PORT || 3000;
 const app = express();
 
@@ -25,20 +32,31 @@ const apiRequestLimiter = rateLimit({
 
 app.set("trust proxy", true);
 app.use(cors());
-app.use(apiRequestLimiter);
+// app.use(apiRequestLimiter);
 app.use(helmet());
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use("/url", urlRouter);
+app.set("view engine", "ejs");
+app.use(express.static("./public"));
+app.set("views", path.join(__dirname, "/src/views"));
+
+app.use("/url", verifyToken, urlRouter);
+app.use("/auth", authRouter);
 app.get("/", async (req, res) => {
-    res.send(req.ip);
+    res.render("dashboard");
 });
 app.get("/:urlCode", async (req, res) => {
+    const ipStatus = ipaddrJs.parse(req.ip).range();
     const urlCode = req.params.urlCode;
-    const country = await getLocation(req.ip);
-    console.log(country);
+    let country = "";
+    if (ipStatus === "loopback") {
+        country = "Nigeria";
+    } else {
+        const location = await getLocation(req.ip);
+        country = location.addressCountry;
+    }
     const urlData = await urlModel.findOneAndUpdate(
         { urlCode },
         {
@@ -46,13 +64,14 @@ app.get("/:urlCode", async (req, res) => {
             $push: {
                 visitHistory: {
                     timestamp: Date.now(),
-                    location: "Nigeria",
+                    location: country,
                 },
             },
         },
         { new: true }
     );
     if (urlData) {
+        await redisClient.del(`urls:${urlData.userId}`);
         res.redirect(urlData.longUrl);
     }
 });

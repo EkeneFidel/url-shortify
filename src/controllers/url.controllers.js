@@ -9,11 +9,12 @@ const redisClient = require("../config/redis.config");
 const shortenUrl = async (req, res, next) => {
     try {
         const baseUrl = process.env.BASE_URL;
+        const userId = req.user.id;
         const nanoid = customAlphabet(
             "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
             7
         );
-        const { longUrl, customCode } = req.body;
+        const { longUrl, customCode, title } = req.body;
         if (validUrl.isUri(longUrl)) {
             let shortUrl = "";
             let urlCode = nanoid(7);
@@ -34,6 +35,7 @@ const shortenUrl = async (req, res, next) => {
                 longUrl,
                 shortUrl,
                 urlCode,
+                userId,
             });
             return res.status(200).json({
                 success: true,
@@ -56,15 +58,16 @@ const shortenUrl = async (req, res, next) => {
 
 const getAllUrls = async (req, res, next) => {
     try {
-        const cachedUrls = await redisClient.get("urls");
+        const userId = req.user.id;
+        const cachedUrls = await redisClient.get(`urls:${userId}`);
         if (cachedUrls) {
             return res.status(200).json({
                 success: true,
                 data: JSON.parse(cachedUrls),
             });
         }
-        const urls = await urlModel.find();
-        await redisClient.set("urls", JSON.stringify(urls), {
+        const urls = await urlModel.find({ userId });
+        await redisClient.set(`urls:${userId}`, JSON.stringify(urls), {
             EX: 1800,
             NX: true,
         });
@@ -98,7 +101,7 @@ const getQRCode = async (req, res, next) => {
             data: urlCodeExists.qrcode,
         });
     } else {
-        const qrcode = await QRCode.toDataURL(urlCode);
+        const qrcode = await QRCode.toDataURL(urlCodeExists.shortUrl);
         const updatedUrl = await urlModel.findOneAndUpdate(
             {
                 urlCode,

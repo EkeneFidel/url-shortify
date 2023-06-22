@@ -6,6 +6,9 @@ const Schema = mongoose.Schema;
 // Define url schema
 const urlSchema = new Schema(
     {
+        title: {
+            type: String,
+        },
         shortUrl: {
             type: String,
         },
@@ -25,7 +28,7 @@ const urlSchema = new Schema(
         visitHistory: [{ timestamp: Date, location: String }],
         userId: {
             type: Schema.Types.ObjectId,
-            // required: true,
+            required: true,
             ref: "user",
         },
         qrcode: {
