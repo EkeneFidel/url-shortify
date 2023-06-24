@@ -17,7 +17,7 @@ body {
 .body {
     height: 100vh;
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     justify-content: center;
     background-color: #001c30;
     overflow-y: auto;
