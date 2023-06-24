@@ -24,6 +24,15 @@ body {
     /* color: #fff; */
 }
 
+.auth-body {
+    align-items: flex-start;
+    padding-top: 35px;
+}
+.auth-body.active {
+    align-items: flex-start;
+    padding-top: 10px;
+}
+
 .main-container {
     display: flex;
     flex-direction: column;
@@ -50,7 +59,7 @@ body {
 
 .auth-container .auth-form {
     width: 50%;
-    padding: 30px;
+    padding: 25px;
     background-color: #fff;
     transition: margin-left 0.18s ease;
 }
@@ -71,11 +80,11 @@ body {
 }
 
 .auth-container.active .auth-forms {
-    height: 600px;
+    height: 540px;
 }
 .auth-container .auth-form .title {
     position: relative;
-    font-size: 27px;
+    font-size: 28px;
     font-weight: 600;
     padding-bottom: 5px;
 }
@@ -93,19 +102,19 @@ body {
 
 .auth-form .input-field {
     position: relative;
-    height: 50px;
+    height: 45px;
     width: 100%;
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 .input-field input {
     position: absolute;
     height: 100%;
     width: 100%;
-    padding: 0 35px;
+    padding: 0 33px;
     border: none;
     outline: none;
-    font-size: 16px;
+    font-size: 15px;
     border-bottom: 2px solid #ccc;
     border-top: 2px solid transparent;
     transition: all 0.2s ease;
@@ -115,23 +124,23 @@ body {
     border-bottom-color: #176b87;
 }
 
-.input-field i {
+.input-field span {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     color: #999;
-    font-size: 23px;
+    font-size: 20px;
     transition: all 0.2s ease;
 }
 
-.input-field input:is(:focus, :valid) ~ i {
+.input-field input:is(:focus, :valid) ~ span {
     color: #176b87;
 }
 
-.input-field i.icon {
+.input-field span.icon {
     left: 0;
 }
-.input-field i.showHidePw {
+.input-field span.showHidePw {
     right: 0;
     cursor: pointer;
     padding: 10px;
@@ -168,13 +177,13 @@ body {
 }
 
 .auth-form .button {
-    margin-top: 35px;
+    margin-top: 30px;
 }
 
 .auth-form .button input {
     border: none;
     color: #fff;
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 500;
     letter-spacing: 1px;
     border-radius: 6px;
@@ -188,7 +197,7 @@ body {
 }
 
 .auth-form .login-signup {
-    margin-top: 30px;
+    margin-top: 28px;
     text-align: center;
 }
 
@@ -225,7 +234,7 @@ nav {
 }
 
 nav h1 {
-    font-size: 30px;
+    font-size: 25px;
     color: #176b87;
 }
 
@@ -234,7 +243,7 @@ nav .logo:hover {
 }
 
 nav a {
-    font-size: 18px;
+    font-size: 16px;
     color: #001c30;
     transition: all 0.4s ease;
 }
@@ -357,30 +366,31 @@ nav.nav h1 {
 .main {
     /* margin-top: 50px; */
     flex: 1;
-    margin-left: 10px;
-    margin-right: 10px;
     height: 100vh;
     display: flex;
     overflow-y: hidden;
+    background-color: #fff;
 }
 
 .main-left {
-    flex: 0.18;
+    flex: 0.16;
     display: flex;
     flex-direction: column;
+    padding-top: 10px;
+    border-right: rgb(0 0 0/12%) solid 1px;
 }
 
 .main-right {
-    flex: 0.82;
+    flex: 0.84;
     display: flex;
     overflow-y: auto;
     flex-direction: column;
+    background-color: #f6f9fa;
 }
 
 .sidebar {
     overflow: hidden;
     height: 100vh;
-    border-right: rgb(0 0 0/12%) solid 1px;
 }
 
 /* .sidebar::before,
@@ -394,29 +404,32 @@ nav.nav h1 {
 .sidebar-item {
     /* border-left: red solid 1px; */
     display: flex;
-    font-size: 1.05rem;
+    font-size: 16px;
     gap: 0.75rem;
     height: 50px;
     align-items: center;
     padding: 10px;
-    margin: 15px 20px;
+    margin: 10px 10px;
     color: rgb(95, 94, 94);
+    transition: all 0.4s ease;
 }
 
 .sidebar-item:hover {
     cursor: pointer;
     border-radius: 5px;
-    background-color: rgb(223, 223, 223);
+    /* background-color: #f6f9fa; */
+    padding-left: 15px;
 }
 
 .sidebar-item.active {
-    border-left: #176b87 solid 5px;
+    border-left: #176b87 solid 4px;
     border-radius: 5px;
-    background-color: #fff;
+    background-color: #f6f9fa;
+    color: #176b87;
 }
 
 .sidebar-item.active:hover {
-    background-color: #fff;
+    background-color: #edf4f7;
 }
 
 .main-right-content {
@@ -455,13 +468,105 @@ nav.nav h1 {
     margin-bottom: 25px;
 }
 
+.link-form-container .link-input label {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.link-form-container .link-input label span {
+    font-weight: 300;
+}
+
 .link-form-container .link-input input {
     padding: 15px 10px;
-    font-size: 1rem;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    /* border: 2px solid transparent; */
     display: flex;
+    transition: all 0.2s ease;
+}
+
+.link-input input:is(:focus, :valid) {
+    border-color: #176b87;
+    font-size: 16px;
+}
+
+.button-group {
+    display: flex;
+    gap: 1.2rem;
+}
+
+.button-group .link-button {
+    display: flex;
+    gap: 1.2rem;
+}
+
+.button-group input {
+    padding: 10px 25px;
+    border-radius: 5px;
+    border: none;
+    transition: all 0.2s ease;
+}
+
+.cancel-btn {
+    color: #176b87;
+    background-color: #f6f9fa;
+    cursor: pointer;
+}
+
+.create-btn {
+    color: #fff;
+    background-color: #176b87;
+    cursor: pointer;
+}
+
+.cancel-btn:hover {
+    color: #176b87;
+    background-color: #ebebeb;
+}
+
+.create-btn:hover {
+    color: #fff;
+    background-color: #11576e;
 }
 
 @media screen and (max-width: 768px) {
+    .auth-body {
+        align-items: flex-start;
+        padding-top: 8px;
+    }
+
+    .auth-container.active .auth-forms {
+        height: 500px;
+    }
+
+    .auth-container .auth-form .title {
+        font-size: 25px;
+    }
+    .auth-form .input-field {
+        height: 40px;
+        margin-top: 25px;
+    }
+    .auth-form .button input {
+        font-size: 15px;
+        font-weight: 400;
+        letter-spacing: 1px;
+    }
+    .auth-form .text {
+        color: #333;
+        font-size: 12px;
+    }
+    .input-field input {
+        font-size: 13px;
+        padding: 0 30px;
+    }
+    .input-field i {
+        font-size: 18px;
+    }
     .landing-container .content {
         margin-top: 0;
     }
@@ -498,6 +603,38 @@ nav.nav h1 {
 @media screen and (max-width: 414px) {
     .landing-container .content {
         margin-top: 0;
+    }
+    .auth-body {
+        align-items: flex-start;
+        padding-top: 8px;
+    }
+
+    .auth-container.active .auth-forms {
+        height: 500px;
+    }
+
+    .auth-container .auth-form .title {
+        font-size: 25px;
+    }
+    .auth-form .input-field {
+        height: 40px;
+        margin-top: 25px;
+    }
+    .auth-form .button input {
+        font-size: 15px;
+        font-weight: 400;
+        letter-spacing: 1px;
+    }
+    .auth-form .text {
+        color: #333;
+        font-size: 12px;
+    }
+    .input-field input {
+        font-size: 13px;
+        padding: 0 30px;
+    }
+    .input-field i {
+        font-size: 18px;
     }
     nav {
         padding: 10px 30px;

@@ -53,6 +53,9 @@ app.get("/a", async (req, res) => {
 app.get("/d", async (req, res) => {
     res.render("dashboard");
 });
+app.get("/ls", async (req, res) => {
+    res.render("links");
+});
 app.get("/:urlCode", async (req, res) => {
     const ipStatus = ipaddrJs.parse(req.ip).range();
     const urlCode = req.params.urlCode;
