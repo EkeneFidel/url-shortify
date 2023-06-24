@@ -5,6 +5,10 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Shortify</title>
+        <link
+            rel="stylesheet"
+            href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"
+        />
         <link rel="stylesheet" href="style.css" />
     </head>
     <body>
@@ -90,8 +94,54 @@
                     </div>
                 </nav>
                 <div class="main">
-                    <div class="main-left"></div>
-                    <div class="main-right"></div>
+                    <div class="main-left">
+                        <div class="sidebar">
+                            <div class="sidebar-item active">
+                                <i class="uil uil-dashboard"></i>
+                                Dashboard
+                            </div>
+                            <div class="sidebar-item">
+                                <i class="uil uil-link-h"></i>Links
+                            </div>
+                            <div class="sidebar-item">
+                                <i class="uil uil-arrow-growth"></i>Analytics
+                            </div>
+                            <div class="sidebar-item">
+                                <i class="uil uil-setting"></i>Settings
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main-right">
+                        <div class="main-right-content">
+                            <h1>Shorten your link with shortify</h1>
+                            <div class="link-form-container">
+                                <form action="#">
+                                    <div class="link-input">
+                                        <label for="long-url"
+                                            >Paste a long URL</label
+                                        >
+                                        <input
+                                            name="long-url"
+                                            type="text"
+                                            placeholder="Paste a long URL"
+                                            required
+                                        />
+                                    </div>
+                                    <div class="link-input">
+                                        <label for="short-url"
+                                            >Enter back half</label
+                                        >
+                                        <input
+                                            name="short-url"
+                                            type="text"
+                                            placeholder="Enter back half"
+                                            required
+                                        />
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

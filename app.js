@@ -17,9 +17,9 @@ const getLocation = require("./src/utils/getLocation");
 const redisClient = require("./src/config/redis.config");
 const { verifyToken } = require("./src/utils/auth.utils");
 
-(async () => {
-    await db.connectToMongoDB();
-})();
+// (async () => {
+//     await db.connectToMongoDB();
+// })();
 const PORT = process.env.PORT || 3000;
 const app = express();
 
@@ -57,23 +57,23 @@ app.get("/:urlCode", async (req, res) => {
         const location = await getLocation(req.ip);
         country = location.addressCountry;
     }
-    const urlData = await urlModel.findOneAndUpdate(
-        { urlCode },
-        {
-            $inc: { visits: 1 },
-            $push: {
-                visitHistory: {
-                    timestamp: Date.now(),
-                    location: country,
-                },
-            },
-        },
-        { new: true }
-    );
-    if (urlData) {
-        await redisClient.del(`urls:${urlData.userId}`);
-        res.redirect(urlData.longUrl);
-    }
+    // const urlData = await urlModel.findOneAndUpdate(
+    //     { urlCode },
+    //     {
+    //         $inc: { visits: 1 },
+    //         $push: {
+    //             visitHistory: {
+    //                 timestamp: Date.now(),
+    //                 location: country,
+    //             },
+    //         },
+    //     },
+    //     { new: true }
+    // );
+    // if (urlData) {
+    //     await redisClient.del(`urls:${urlData.userId}`);
+    //     res.redirect(urlData.longUrl);
+    // }
 });
 
 // Handle errors.
