@@ -201,11 +201,11 @@ body {
     margin: 0;
     /* padding: 20px 15px; */
 }
-
+/* 
 .landing-container .content {
     margin-top: 100px;
-    /* padding: 20px 15px; */
-}
+    padding: 20px 15px;
+} */
 
 nav {
     background-color: #fff;
@@ -279,7 +279,6 @@ nav.nav h1 {
 }
 
 .content {
-    margin-top: 20px;
     display: flex;
     /* justify-content: center; */
     flex: 0.97;
