@@ -11,7 +11,7 @@
 body {
     margin: 0;
     padding: 0;
-    /* overflow: hidden; */
+    overflow: hidden;
 }
 
 .body {
@@ -20,6 +20,7 @@ body {
     align-items: center;
     justify-content: center;
     background-color: #001c30;
+    overflow-y: auto;
     /* color: #fff; */
 }
 
@@ -508,7 +509,6 @@ nav.nav h1 {
 
     nav a {
         border-radius: 5px;
-        border-radius: 5px;
         font-size: 15px;
         padding: 0 0.05em;
     }
@@ -531,7 +531,6 @@ nav.nav h1 {
     }
 
     nav a {
-        border-radius: 5px;
         border-radius: 5px;
         font-size: 10px;
         /* margin: 0 0.2em; */
