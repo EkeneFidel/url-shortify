@@ -13,13 +13,13 @@ pwShowHide.forEach((eyeIcon) => {
                 pwField.type = "text";
 
                 pwShowHide.forEach((icon) => {
-                    icon.innerHTML = "visibility";
+                    icon.classList.replace("uil-eye-slash", "uil-eye");
                 });
             } else {
                 pwField.type = "password";
 
                 pwShowHide.forEach((icon) => {
-                    icon.textContent = "visibility_off";
+                    icon.classList.replace("uil-eye", "uil-eye-slash");
                 });
             }
         });
