@@ -1024,7 +1024,8 @@ nav.nav h1 {
     }
 
     .auth-container.active .auth-forms {
-        height: 600px;
+        height: 450px;
+        margin: 5px 0;
     }
 
     .auth-container .auth-form .title {
@@ -1083,6 +1084,14 @@ nav.nav h1 {
 
     nav .logo {
         display: none;
+    }
+
+    nav .auth.logo {
+        display: block;
+    }
+
+    nav .landing.logo {
+        display: block;
     }
 
     nav .uil-bars {
