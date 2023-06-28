@@ -90,7 +90,7 @@ loginForm.addEventListener("submit", async (e) => {
                         errorMsg[0].querySelector("p").innerHTML = "";
                     }, 2000);
                 } else {
-                    window.location.href = "http://localhost:3000/dashboard";
+                    location.pathname = "dashboard";
                 }
             });
     } catch (err) {
@@ -136,7 +136,7 @@ signUpForm.addEventListener("submit", async (e) => {
                         errorMsg[1].querySelector("p").innerHTML = "";
                     }, 2000);
                 } else {
-                    window.location.href = "http://localhost:3000/auth";
+                    location.pathname = "auth?type=login";
                     container.classList.remove("active");
                     authBody.classList.remove("active");
                 }

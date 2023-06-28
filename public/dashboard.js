@@ -8,6 +8,7 @@ const urlForm = document.querySelector(".url-form");
 const linkInput = document.querySelectorAll(".link-input");
 const longUrl = document.querySelector("#long-url");
 const shortUrl = document.querySelector("#short-url");
+const sidebarItem = document.querySelectorAll(".sidebar-item");
 
 createButton.addEventListener("click", (e) => {
     if (longUrl.value === "") {
@@ -33,3 +34,5 @@ navClose.addEventListener("click", (e) => {
     navBar.style.display = "block";
     navClose.style.display = "none";
 });
+
+sidebarItem.addEventListener("click", (e) => {});
