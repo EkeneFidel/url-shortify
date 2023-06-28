@@ -1089,15 +1089,13 @@ nav.nav h1 {
 
     .loader {
         display: none;
-        border: 4px solid #f3f3f3; /* Light grey */
-        border-top: 4px solid #3498db; /* Blue */
-        border-right: 4px solid #3498db; /* Blue */
-        border-left: 4px solid #3498db; /* Blue */
+        border: 0.35rem solid #3498db; /* Blue */
+        border-bottom: 0.35rem solid #f3f3f3; /* Light grey */
         border-radius: 50%;
-        width: 20px;
-        margin-top: 10px;
-        margin-left: 110px;
-        height: 20px;
+        width: 1.4rem;
+        margin-top: 0.65rem;
+        margin-left: 10rem;
+        height: 1.4rem;
     }
     .input-field input {
         font-size: 13px;

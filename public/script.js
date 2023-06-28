@@ -69,29 +69,33 @@ loginForm.addEventListener("submit", async (e) => {
 
     const email = e.target.elements.email;
     const passw = e.target.elements.password;
-    await fetch("/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            email: email.value,
-            password: passw.value,
-        }),
-    })
-        .then((res) => res.json())
-        .then((data) => {
-            setTimeout(() => {}, 5000);
-            stopLoad("login");
-            if (data.success === false) {
-                errorMsg[0].style.display = "flex";
-                errorMsg[0].querySelector("p").innerHTML = data.message;
-                setTimeout(() => {
-                    errorMsg[0].style.display = "none";
-                    errorMsg[0].querySelector("p").innerHTML = "";
-                }, 2000);
-            } else {
-                window.location.href = "http://localhost:3000/dashboard";
-            }
-        });
+    try {
+        await fetch("/auth/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                email: email.value,
+                password: passw.value,
+            }),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                setTimeout(() => {}, 5000);
+                stopLoad("login");
+                if (data.success === false) {
+                    errorMsg[0].style.display = "flex";
+                    errorMsg[0].querySelector("p").innerHTML = data.message;
+                    setTimeout(() => {
+                        errorMsg[0].style.display = "none";
+                        errorMsg[0].querySelector("p").innerHTML = "";
+                    }, 2000);
+                } else {
+                    window.location.href = "http://localhost:3000/dashboard";
+                }
+            });
+    } catch (err) {
+        stopLoad("login");
+    }
 });
 
 signUpForm.addEventListener("submit", async (e) => {
