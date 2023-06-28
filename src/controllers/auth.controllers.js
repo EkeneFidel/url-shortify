@@ -8,17 +8,26 @@ const tokenModel = require("../models/token.model");
 const { generateAuthToken } = require("../utils/auth.utils");
 const { isValidId } = require("../utils/db.utils");
 
+const getAuthPage = (req, res, next) => {
+    let { type } = req.query;
+    if (req.session.isLogged) {
+        res.redirect("/dashboard");
+    } else {
+        res.render("auth", { type });
+    }
+};
+
 const signup = async (req, res, next) => {
     try {
         const { userName, email, password } = req.body;
         if (!userName || !email || !password) {
-            return res.status(400).json({
+            return res.json({
                 success: false,
                 message: "Credentials incomplete",
             });
         }
         const user = await userModel.create({ userName, email, password });
-        return res.status(200).json({
+        return res.json({
             success: true,
             message: "User created",
             data: user,
@@ -26,7 +35,7 @@ const signup = async (req, res, next) => {
     } catch (error) {
         let user = await userModel.findOne({ email: req.body.email });
         await userModel.findOneAndDelete({ _id: user._id });
-        return res.status(400).json({
+        return res.json({
             success: false,
             message: error.message,
         });
@@ -37,14 +46,14 @@ const login = async (req, res, next) => {
     try {
         const { email, password } = req.body;
         if (!email) {
-            return res.status(500).json({
+            return res.json({
                 success: false,
                 message: "Provide an email",
             });
         }
 
         if (!password) {
-            return res.status(500).json({
+            return res.json({
                 success: false,
                 message: "Provide a password",
             });
@@ -55,7 +64,7 @@ const login = async (req, res, next) => {
         });
 
         if (!user) {
-            return res.status(401).json({
+            return res.json({
                 success: false,
                 message: "user does not exist",
             });
@@ -70,8 +79,11 @@ const login = async (req, res, next) => {
             });
         }
         const token = generateAuthToken(user);
-
-        return res.status(200).json({
+        req.session.token = token;
+        req.session.isLogged = true;
+        req.session.save();
+        console.log(req.session);
+        return res.json({
             success: true,
             message: "Login successful",
             user: {
@@ -83,9 +95,9 @@ const login = async (req, res, next) => {
             token: token,
         });
     } catch (error) {
-        return res.status(500).json({
+        return res.json({
             success: false,
-            message: "An error occured",
+            message: error,
         });
     }
 };
@@ -134,4 +146,5 @@ module.exports = {
     signup,
     login,
     changePassword,
+    getAuthPage,
 };

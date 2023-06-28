@@ -11,7 +11,7 @@ const checkUser = async (req, res, next) => {
 
         //if email exist in the database respond with a status of 409
         if (email) {
-            return res.status(400).json({
+            return res.json({
                 success: false,
                 message: "email already registered",
             });
@@ -19,7 +19,7 @@ const checkUser = async (req, res, next) => {
 
         next();
     } catch (error) {
-        return res.status(400).json({
+        return res.json({
             success: false,
             message: error.message,
         });

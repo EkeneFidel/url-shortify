@@ -5,6 +5,7 @@ const generateAuthToken = function (user) {
     const token = jwt.sign(
         {
             id: user._id,
+            name: user.userName,
             email: user.email,
         },
         process.env.JWT_SECRET,
@@ -14,29 +15,17 @@ const generateAuthToken = function (user) {
 };
 
 const verifyToken = (req, res, next) => {
-    const authorization = req.header("Authorization");
-    if (!authorization) {
-        return res.status(403).json({
-            succes: false,
-            message: "Token required",
-        });
+    const sessionToken = req.session.token;
+    if (!sessionToken) {
+        return res.redirect("auth?type=login");
     }
 
-    let [tokenType, token] = authorization.split(" ");
-    if (tokenType !== "Bearer") {
-        return res.status(403).json({
-            succes: false,
-            message: "Bearer Token required",
-        });
-    }
+    let token = sessionToken;
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         req.user = decoded;
     } catch (error) {
-        return res.status(401).json({
-            succes: false,
-            message: error.message,
-        });
+        return res.redirect("auth?type=login");
     }
     next();
 };

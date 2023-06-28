@@ -6,6 +6,9 @@ const rateLimit = require("express-rate-limit");
 const helmet = require("helmet");
 const ipaddrJs = require("ipaddr.js");
 const path = require("path");
+const redis = require("redis");
+var session = require("express-session");
+const cookieParser = require("cookie-parser");
 
 require("dotenv").config();
 
@@ -17,9 +20,7 @@ const getLocation = require("./src/utils/getLocation");
 const redisClient = require("./src/config/redis.config");
 const { verifyToken } = require("./src/utils/auth.utils");
 
-// (async () => {
-//     await db.connectToMongoDB();
-// })();
+db.connectToMongoDB();
 const PORT = process.env.PORT || 3000;
 const app = express();
 
@@ -32,9 +33,19 @@ const apiRequestLimiter = rateLimit({
 
 app.set("trust proxy", true);
 app.use(cors());
-// app.use(apiRequestLimiter);
+app.use(apiRequestLimiter);
 app.use(helmet());
 app.use(morgan("dev"));
+app.use(cookieParser());
+
+app.use(
+    session({
+        secret: process.env.JWT_SECRET,
+        saveUninitialized: true,
+        resave: false,
+        cookie: { maxAge: 1000 * 60 * 60 * 24 },
+    })
+);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -44,18 +55,17 @@ app.set("views", path.join(__dirname, "/src/views"));
 
 app.use("/url", verifyToken, urlRouter);
 app.use("/auth", authRouter);
+app.get("/dashboard", verifyToken, async (req, res) => {
+    res.render("dashboard", { user: req.user });
+});
 app.get("/", async (req, res) => {
-    res.render("landing");
+    if (req.session.isLogged) {
+        res.redirect("/dashboard");
+    } else {
+        res.render("landing");
+    }
 });
-app.get("/a", async (req, res) => {
-    res.render("auth");
-});
-app.get("/d", async (req, res) => {
-    res.render("dashboard");
-});
-app.get("/ls", async (req, res) => {
-    res.render("links");
-});
+
 app.get("/:urlCode", async (req, res) => {
     const ipStatus = ipaddrJs.parse(req.ip).range();
     const urlCode = req.params.urlCode;
@@ -66,23 +76,23 @@ app.get("/:urlCode", async (req, res) => {
         const location = await getLocation(req.ip);
         country = location.addressCountry;
     }
-    // const urlData = await urlModel.findOneAndUpdate(
-    //     { urlCode },
-    //     {
-    //         $inc: { visits: 1 },
-    //         $push: {
-    //             visitHistory: {
-    //                 timestamp: Date.now(),
-    //                 location: country,
-    //             },
-    //         },
-    //     },
-    //     { new: true }
-    // );
-    // if (urlData) {
-    //     await redisClient.del(`urls:${urlData.userId}`);
-    //     res.redirect(urlData.longUrl);
-    // }
+    const urlData = await urlModel.findOneAndUpdate(
+        { urlCode },
+        {
+            $inc: { visits: 1 },
+            $push: {
+                visitHistory: {
+                    timestamp: Date.now(),
+                    location: country,
+                },
+            },
+        },
+        { new: true }
+    );
+    if (urlData) {
+        await redisClient.del(`urls:${urlData.userId}`);
+        res.redirect(urlData.longUrl);
+    }
 });
 
 // Handle errors.

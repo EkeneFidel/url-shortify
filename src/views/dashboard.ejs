@@ -15,7 +15,7 @@
         <div class="body">
             <div class="dashboard-container">
                 <nav>
-                    <i class="uil uil-bars"></i>
+                    <i class="uil uil-bars nav-bar"></i>
                     <i class="uil uil-times nav-close"></i>
                     <div class="logo">
                         <h1>Shortify</h1>
@@ -93,7 +93,7 @@
                                 </g>
                             </g>
                         </svg>
-                        <p>Ekene</p>
+                        <p><%= user.name %></p>
                     </div>
                 </nav>
                 <div class="main">
@@ -120,17 +120,19 @@
                         <div class="main-right-content">
                             <h1>Shorten your link with shortify</h1>
                             <div class="link-form-container">
-                                <form action="#">
+                                <form class="url-form">
                                     <div class="link-input">
                                         <label for="long-url"
                                             >Paste a long URL</label
                                         >
                                         <input
+                                            id="long-url"
                                             name="long-url"
                                             type="text"
                                             placeholder="Paste a long URL"
                                             required
                                         />
+                                        <span class="error">Incorrect url</span>
                                     </div>
                                     <div class="link-input">
                                         <label for="short-url"
@@ -139,20 +141,21 @@
                                         >
                                         <input
                                             name="short-url"
+                                            id="short-url"
                                             type="text"
                                             placeholder="Enter back half"
                                             required
                                         />
                                     </div>
                                     <div class="button-group">
-                                        <div class="link-button">
+                                        <div class="link-button cancel-button">
                                             <input
                                                 class="cancel-btn"
                                                 type="button"
                                                 value="Cancel"
                                             />
                                         </div>
-                                        <div class="link-button">
+                                        <div class="link-button create-button">
                                             <input
                                                 class="create-btn"
                                                 type="button"
@@ -168,5 +171,5 @@
             </div>
         </div>
     </body>
-    <script type="module" src="script.js"></script>
+    <script type="module" src="dashboard.js"></script>
 </html>
