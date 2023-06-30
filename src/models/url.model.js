@@ -6,9 +6,6 @@ const Schema = mongoose.Schema;
 // Define url schema
 const urlSchema = new Schema(
     {
-        title: {
-            type: String,
-        },
         shortUrl: {
             type: String,
         },
@@ -18,6 +15,7 @@ const urlSchema = new Schema(
         },
         longUrl: {
             type: String,
+            unique: true,
             required: true,
         },
         visits: {

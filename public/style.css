@@ -42,7 +42,7 @@ body {
 
 .auth-container {
     position: relative;
-    max-width: 430px;
+    max-width: 330px;
     width: 100%;
     background: #fff;
     border-radius: 10px;
@@ -57,6 +57,10 @@ body {
     height: 500px;
     width: 200%;
     transition: height 0.2s ease;
+}
+
+.auth-container .auth-forms.reset {
+    height: 350px;
 }
 
 .auth-container .auth-form {
@@ -90,7 +94,7 @@ body {
 }
 .auth-container .auth-form .title {
     position: relative;
-    font-size: 28px;
+    font-size: 23px;
     font-weight: 600;
     padding-bottom: 5px;
 }
@@ -210,14 +214,29 @@ body {
 
 .auth-form .error-text {
     color: #db3730;
+    border-left: #db3730 5px solid;
+    border-radius: 5px;
     display: none;
     justify-content: center;
     gap: 1.2rem;
-    background-color: #feeae5;
+    background-color: #feeae5bb;
     margin: 0.8rem 0.3rem;
     padding: 0.5rem;
     font-size: 11px;
     transition: all 0.3s ease;
+}
+
+.auth-form .error-text.success {
+    font-size: 11px;
+    display: none;
+    color: #63d11f;
+    border-left: #63d11f 5px solid;
+    border-radius: 5px;
+    background-color: #c9f5aea4;
+}
+
+.uil-check-circle {
+    font-size: 15px;
 }
 
 /* ============================== LANDING PAGE ================================== */
@@ -237,7 +256,7 @@ body {
 } */
 
 nav {
-    background-color: #fff;
+    background-color: #001c30;
     border-bottom: rgb(240, 238, 238) solid 0.5px;
     width: 100%;
     flex: 0.03;
@@ -262,7 +281,7 @@ nav .uil-bars {
 
 nav h1 {
     font-size: 25px;
-    color: #136486;
+    color: #fff;
 }
 
 nav .logo:hover {
@@ -272,20 +291,20 @@ nav .logo:hover {
 nav p {
     flex: 1;
     font-size: 15px;
-    color: #001c30;
+    color: #fff;
 }
 
 nav a {
     flex: 2;
     font-size: 15px;
-    color: #001c30;
+    color: #fff;
     transition: all 0.4s ease;
 }
 
 nav a:link,
 nav a:visited {
     /* background-color: #0d3642; */
-    color: #001c30;
+    color: #fff;
     border-radius: 10px;
     padding: 1em 1.5em;
     text-decoration: none;
@@ -383,7 +402,7 @@ nav.nav h1 {
 }
 
 .jumbo-btn:hover {
-    background-color: #27374d;
+    background-color: #001c30;
 }
 
 /* ===================== Dashboard ============================= */
@@ -511,20 +530,19 @@ nav.nav h1 {
 }
 
 .link-form-container .link-input input {
-    padding: 15px 10px;
+    padding: 12px 8px;
     border-radius: 5px;
     border: none;
     outline: none;
-    font-size: 15px;
+    font-size: 14px;
     border: 1px solid #ccc;
-    /* border: 2px solid transparent; */
     display: flex;
     transition: all 0.2s ease;
 }
 
 .link-input input:is(:focus, :valid) {
     border-color: #176b87;
-    font-size: 16px;
+    font-size: 15px;
 }
 
 .link-input.error input {
@@ -686,7 +704,12 @@ nav.nav h1 {
     /* width: 2.5rem; */
     text-align: center;
     align-self: center;
+    cursor: pointer;
     /* display: inline-block; */
+}
+
+.link-tabs i:hover {
+    color: #136486;
 }
 
 .link-tabs h3 {
@@ -711,15 +734,20 @@ nav.nav h1 {
 }
 
 .link-item {
-    display: none;
+    display: flex;
     padding: 0.5rem 1rem;
     gap: 1rem;
     border-top: rgb(0 0 0/12%) solid 1px;
     background-color: #fff;
+    transition: all 0.3s ease;
 }
 
 .link-item.active {
-    background-color: #f6f9fa;
+    background-color: #edeff0;
+}
+
+.link-item:hover {
+    cursor: pointer;
 }
 
 .link-item:first-child {
@@ -842,7 +870,7 @@ nav.nav h1 {
 }
 
 .details {
-    display: none;
+    display: block;
 }
 
 .link-list .empty {
@@ -850,9 +878,11 @@ nav.nav h1 {
     color: #757070;
     font-size: 13px;
     text-align: center;
+    display: none;
 }
 
 .link-detail .empty {
+    display: block;
     padding-top: 30px;
     color: #757070;
     font-size: 13px;
@@ -885,18 +915,88 @@ nav.nav h1 {
 
 .loader {
     display: none;
-    border: 5px solid #f3f3f3; /* Light grey */
+    border: 5px solid #fff; /* Light grey */
     border-top: 5px solid #3498db; /* Blue */
     border-right: 5px solid #3498db; /* Blue */
     border-left: 5px solid #3498db; /* Blue */
     border-radius: 50%;
     width: 30px;
     margin-top: 8px;
-    margin-left: 178px;
+    margin-left: 128px;
     height: 30px;
     position: absolute;
     z-index: 3;
     animation: spin 400ms linear infinite;
+}
+
+/* The alert message box */
+.alert {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f44336a4; /* Red */
+    color: white;
+    margin: 10px 10px;
+    transition: all 0.2s ease;
+}
+
+/* The close button */
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.closebtn:hover {
+    color: black;
+}
+
+.landing-container.email .content {
+    justify-content: center;
+    flex: 1;
+    background-color: #001c30;
+}
+
+.email-confirmed {
+    height: 250px;
+    width: 350px;
+    border-radius: 5px;
+    background-color: #f6f9fa;
+    padding: 15px;
+}
+
+.email-confirmed .message {
+    margin-top: 5px;
+    margin-bottom: 15px;
+    color: #001c30;
+}
+
+.email-confirmed .message p {
+    margin-bottom: 20px;
+}
+
+.email-confirmed .text {
+    color: #176b87;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.email-confirmed a:hover {
+    text-decoration: underline;
+}
+
+.uil-check-circle.email {
+    font-size: 60px;
+    color: #63d11f;
+}
+
+.uil-times-circle.email {
+    font-size: 60px;
+    color: #db3730;
 }
 
 @keyframes spin {
@@ -1068,7 +1168,7 @@ nav.nav h1 {
     }
 
     .auth-container .auth-form .title {
-        font-size: 25px;
+        font-size: 20px;
     }
     .auth-form .input-field {
         height: 40px;
@@ -1084,7 +1184,7 @@ nav.nav h1 {
         font-size: 12px;
     }
     .auth-form .error-text {
-        font-size: 9px;
+        font-size: 10px;
     }
 
     .loader {
@@ -1093,8 +1193,8 @@ nav.nav h1 {
         border-bottom: 0.35rem solid #f3f3f3; /* Light grey */
         border-radius: 50%;
         width: 1.4rem;
-        margin-top: 0.65rem;
-        margin-left: 10rem;
+        margin-top: 0.58rem;
+        margin-left: 8.3rem;
         height: 1.4rem;
     }
     .input-field input {
@@ -1146,14 +1246,14 @@ nav.nav h1 {
 
     nav .uil-bars {
         font-size: 20px;
-        color: #11576e;
+        color: #fff;
         display: block;
         transition: all 0.3s ease;
     }
     .nav-close:before {
         display: inline-block;
         font-size: 20px;
-        color: #11576e;
+        color: #fff;
         padding-top: 0.1rem;
         /* color: #11576e;
         width: 0.1rem;
@@ -1229,7 +1329,8 @@ nav.nav h1 {
     }
 
     .button-group {
-        gap: 0.55rem;
+        gap: 0;
+        justify-content: center;
     }
     .button-group input {
         padding: 7px 17px;
@@ -1270,9 +1371,6 @@ nav.nav h1 {
     .link-detail {
         display: none;
     }
-    /* .link-menu {
-        display: none;
-    } */
     .link-tabs {
         gap: 1rem;
     }
@@ -1307,7 +1405,12 @@ nav.nav h1 {
 
     .link-detail .button {
         padding: 0.2rem 0.3rem;
-        font-size: 12px;
+        font-size: 11px;
+        /* margin-left: 12px; */
+    }
+
+    .link-detail .button i {
+        font-size: 15px;
     }
 
     .link-detail .close {
@@ -1320,6 +1423,26 @@ nav.nav h1 {
         height: 0.1rem; */
         font-size: 1.5rem;
         /* padding: 1rem; */
+    }
+
+    .email-confirmed {
+        height: 180px;
+        width: 250px;
+        border-radius: 5px;
+        background-color: #f6f9fa;
+        padding: 15px;
+    }
+
+    .uil-check-circle.email {
+        font-size: 50px;
+    }
+
+    .email-confirmed p {
+        font-size: 13px;
+    }
+
+    .email-confirmed .text {
+        font-size: 12px;
     }
 }
 

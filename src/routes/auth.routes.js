@@ -1,10 +1,14 @@
 const express = require("express");
-const { render } = require("../../app");
 const {
     signup,
     login,
     changePassword,
     getAuthPage,
+    getForgotPasswPage,
+    requestPasswordReset,
+    resetPassword,
+    getResetPasswPage,
+    renderPasswordChanged,
 } = require("../controllers/auth.controllers");
 const { checkUser } = require("../middlewares/user.validation");
 const { verifyToken } = require("../utils/auth.utils");
@@ -15,5 +19,10 @@ authRouter.get("", getAuthPage);
 authRouter.post("/signup", checkUser, signup);
 authRouter.post("/login", login);
 authRouter.post("/change-password", verifyToken, changePassword);
+authRouter.get("/change-password", renderPasswordChanged);
+authRouter.get("/forgot-password", getForgotPasswPage);
+authRouter.post("/request-reset-password", requestPasswordReset);
+authRouter.post("/reset-password", resetPassword);
+authRouter.get("/reset-password", getResetPasswPage);
 
 module.exports = authRouter;

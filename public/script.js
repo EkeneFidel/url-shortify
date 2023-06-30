@@ -10,10 +10,18 @@ const container = document.querySelector(".auth-container"),
     signupLoader = document.querySelector("#signup-loader"),
     loginLoader = document.querySelector("#login-loader"),
     loginBtn = document.querySelector("#login-btn"),
-    signupBtn = document.querySelector("#signup-btn");
+    signupBtn = document.querySelector("#signup-btn"),
+    checkboxLogin = document.querySelector(".checkbox-login"),
+    checkboxSignup = document.querySelector(".checkbox-signup");
+
+const logo = document.querySelector(".logo");
+logo.addEventListener("click", (e) => {
+    if (e.target.closest(".logo")) {
+        location.pathname = "/";
+    }
+});
 
 function startLoad(type) {
-    console.log(type);
     if (type === "login") {
         loginBtn.value = "";
         loginLoader.style.display = "block";
@@ -66,17 +74,20 @@ login.addEventListener("click", () => {
 loginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     startLoad("login");
-
+    let payload = {};
+    if (checkboxLogin.checked) {
+        payload.remenber = true;
+    }
     const email = e.target.elements.email;
     const passw = e.target.elements.password;
+
+    payload.email = email.value;
+    payload.password = passw.value;
     try {
         await fetch("/auth/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                email: email.value,
-                password: passw.value,
-            }),
+            body: JSON.stringify(payload),
         })
             .then((res) => res.json())
             .then((data) => {
@@ -90,7 +101,13 @@ loginForm.addEventListener("submit", async (e) => {
                         errorMsg[0].querySelector("p").innerHTML = "";
                     }, 2000);
                 } else {
-                    location.pathname = "dashboard";
+                    let newURL =
+                        window.location.protocol +
+                        "//" +
+                        window.location.host +
+                        "/" +
+                        "dashboard";
+                    location.href = newURL;
                 }
             });
     } catch (err) {
@@ -114,7 +131,16 @@ signUpForm.addEventListener("submit", async (e) => {
         setTimeout(() => {
             errorMsg[1].style.display = "none";
             errorMsg[1].querySelector("p").innerHTML = "";
-        }, 2000);
+        }, 5000);
+    } else if (!checkboxSignup.checked) {
+        errorMsg[1].style.display = "flex";
+        errorMsg[1].querySelector("p").innerHTML =
+            "Please indicate that you have read and agree to the Terms and Conditions";
+        stopLoad("signup");
+        setTimeout(() => {
+            errorMsg[1].style.display = "none";
+            errorMsg[1].querySelector("p").innerHTML = "";
+        }, 5000);
     } else {
         await fetch("/auth/signup", {
             method: "POST",
@@ -134,11 +160,22 @@ signUpForm.addEventListener("submit", async (e) => {
                     setTimeout(() => {
                         errorMsg[1].style.display = "none";
                         errorMsg[1].querySelector("p").innerHTML = "";
-                    }, 2000);
+                    }, 5000);
                 } else {
-                    location.pathname = "auth?type=login";
-                    container.classList.remove("active");
-                    authBody.classList.remove("active");
+                    errorMsg[1].style.display = "flex";
+                    errorMsg[1].classList.add("success");
+                    errorMsg[1].innerHTML = `<i class="uil uil-check-circle"></i> <p>${data.message}</p>`;
+
+                    stopLoad("signup");
+                    setTimeout(() => {
+                        errorMsg[1].style.display = "none";
+                        errorMsg[1].querySelector("p").innerHTML = "";
+                    }, 5000);
+                    userName.value = "";
+                    email.value = "";
+                    passw.value = "";
+                    confirmPassw.value = "";
+                    checkboxSignup.checked = false;
                 }
             });
     }
