@@ -42,8 +42,7 @@ loginForm.addEventListener("submit", async (e) => {
     startLoad();
     const passw = e.target.elements.password;
     const confirmPassw = e.target.elements.confirmPassword;
-    console.log(passw.value, confirmPassw.value);
-    if (passw.value !== confirmPassw.value) {
+    if (passw.value.trim() !== confirmPassw.value.trim()) {
         stopLoad();
         errorMsg.style.display = "flex";
         errorMsg.innerHTML = `<svg
@@ -75,7 +74,7 @@ loginForm.addEventListener("submit", async (e) => {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                password: passw.value,
+                password: passw.value.trim(),
             }),
         })
             .then((res) => res.json())

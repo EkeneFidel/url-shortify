@@ -15,7 +15,6 @@ async function verify() {
         })
             .then((res) => res.json())
             .then((data) => {
-                console.log(data);
                 if (data.success === false) {
                     emailConfirmed.innerHTML = `<i class="uil uil-times-circle email"></i> <div class="message"> <p>${data.message}</p> </div><a class="text resend" >Resend Verification</a>`;
                 } else {

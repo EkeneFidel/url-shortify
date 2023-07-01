@@ -81,8 +81,8 @@ loginForm.addEventListener("submit", async (e) => {
     const email = e.target.elements.email;
     const passw = e.target.elements.password;
 
-    payload.email = email.value;
-    payload.password = passw.value;
+    payload.email = email.value.trim();
+    payload.password = passw.value.trim();
     try {
         await fetch("/auth/login", {
             method: "POST",
@@ -139,7 +139,7 @@ signUpForm.addEventListener("submit", async (e) => {
     const passw = e.target.elements.password;
     const confirmPassw = e.target.elements.confirmPassword;
 
-    if (passw.value !== confirmPassw.value) {
+    if (passw.value.trim() !== confirmPassw.value.trim()) {
         stopLoad("signup");
         errorMsg[1].style.display = "flex";
         errorMsg[1].innerHTML = `<svg
@@ -188,9 +188,9 @@ signUpForm.addEventListener("submit", async (e) => {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                email: email.value,
-                userName: userName.value,
-                password: passw.value,
+                email: email.value.trim(),
+                userName: userName.value.trim(),
+                password: passw.value.trim(),
             }),
         })
             .then((res) => res.json())
