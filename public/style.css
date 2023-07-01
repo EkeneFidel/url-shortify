@@ -282,6 +282,7 @@ nav .uil-bars {
 nav h1 {
     font-size: 25px;
     color: #fff;
+    user-select: none;
 }
 
 nav .logo:hover {
@@ -464,11 +465,13 @@ nav.nav h1 {
 
 .landing-container.error-page .content h2 {
     color: #176b87;
+    user-select: none;
     font-weight: 500;
     font-size: 1.7rem;
 }
 
 .construct-image h2 {
+    user-select: none;
     font-weight: 500;
     color: #176b87;
     text-align: center;
@@ -498,6 +501,11 @@ nav.nav h1 {
     margin: 10px 10px;
     color: rgb(95, 94, 94);
     transition: all 300ms ease;
+}
+
+.sidebar-item > span,
+.sidebar-item > i {
+    user-select: none;
 }
 
 .sidebar-item:hover {
@@ -907,6 +915,7 @@ nav.nav h1 {
 
 .link-list .empty {
     margin-top: 20px;
+    user-select: none;
     color: #757070;
     font-size: 13px;
     text-align: center;
@@ -914,6 +923,7 @@ nav.nav h1 {
 }
 
 .link-detail .empty {
+    user-select: none;
     display: block;
     padding-top: 30px;
     color: #757070;
@@ -1392,7 +1402,7 @@ nav.nav h1 {
     }
 
     .button-group {
-        gap: 0;
+        gap: 0.4rem;
         justify-content: center;
     }
     .button-group input {
