@@ -50,14 +50,14 @@ const sendVerificationEmail = async (userId) => {
         const user = await userModel.findById(userId);
         if (!user) {
             return {
-                status: false,
+                success: false,
                 message: `Your email is not registered`,
             };
         }
 
         if (user.isVerified) {
             return {
-                status: false,
+                success: false,
                 message: "Your email has been verified",
             };
         }
@@ -81,18 +81,19 @@ const sendVerificationEmail = async (userId) => {
         let { success, message } = await sendEmail(user, payload);
         if (!success) {
             return {
-                status: false,
+                success: false,
                 message: message,
             };
+        } else {
+            return {
+                success: true,
+                message: `Verification email sent to ${user.email}`,
+                verificationToken: uniqueString,
+            };
         }
-        return {
-            status: true,
-            message: `Verification email sent to ${user.email}`,
-            verificationToken: uniqueString,
-        };
     } catch (error) {
         return {
-            status: false,
+            success: false,
             message: "Unable to send verification link",
         };
     }

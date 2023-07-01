@@ -32,9 +32,18 @@ const signup = async (req, res, next) => {
         }
         const user = await userModel.create({ userName, email, password });
         await analyticsModel.create({ userId: user._id });
-        const { message, verificationToken } = await sendVerificationEmail(
-            user._id
-        );
+        const { success, message, verificationToken } =
+            await sendVerificationEmail(user._id);
+        if (!success) {
+            let user = await userModel.findOne({ email: req.body.email });
+            await userModel.findOneAndDelete({ _id: user._id });
+            await analyticsModel.findOneAndDelete({ userId: user._id });
+            await verificationModel.findOneAndDelete({ userId: user._id });
+            return res.status(400).json({
+                success: false,
+                message: message,
+            });
+        }
         return res.status(200).json({
             success: true,
             message: message,

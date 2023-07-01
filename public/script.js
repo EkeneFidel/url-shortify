@@ -195,6 +195,7 @@ signUpForm.addEventListener("submit", async (e) => {
         })
             .then((res) => res.json())
             .then((data) => {
+                console.log(data);
                 stopLoad("signup");
                 if (data.success === false) {
                     errorMsg[1].style.display = "flex";
@@ -218,16 +219,16 @@ signUpForm.addEventListener("submit", async (e) => {
                         errorMsg[1].querySelector("p").innerHTML = "";
                     }, 5000);
                 } else {
-                    errorMsg[1].style.display = "flex";
                     errorMsg[1].classList.add("success");
+                    errorMsg[1].style.display = "flex";
                     errorMsg[1].innerHTML = `<i class="uil uil-check-circle"></i> <p>${data.message}</p>`;
 
                     stopLoad("signup");
                     setTimeout(() => {
                         errorMsg[1].style.display = "none";
                         errorMsg[1].querySelector("p").innerHTML = "";
+                        errorMsg[1].classList.remove("success");
                     }, 5000);
-                    errorMsg[1].classList.remove("success");
                     userName.value = "";
                     email.value = "";
                     passw.value = "";
