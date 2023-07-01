@@ -94,7 +94,7 @@ const login = async (req, res, next) => {
             }
             req.session.token = token;
             req.session.isLogged = true;
-            req.session.user = user.userName;
+            req.session.user = user.userName.split(" ")[0];
             req.session.save();
             return res.status(200).json({
                 success: true,
