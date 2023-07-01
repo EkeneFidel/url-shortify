@@ -444,7 +444,6 @@ nav.nav h1 {
 
 .construction {
     justify-content: flex-start;
-    padding-top: 100px;
     align-items: center;
 }
 
@@ -460,8 +459,6 @@ nav.nav h1 {
 
 .landing-container.error-page .content {
     justify-content: center;
-    flex-direction: column;
-    /* padding-top: 20px; */
     align-items: center;
 }
 
@@ -1339,17 +1336,29 @@ nav.nav h1 {
         font-size: 16px;
     }
 
+    .landing-container.error-page .content {
+        justify-content: flex-start;
+        flex-direction: column;
+        padding-top: 100px;
+        align-items: center;
+    }
+
     .construct-image h2 {
         font-size: 1.3rem;
     }
 
+    .construct-image svg {
+        height: 400px;
+        width: 400px;
+    }
+
     .landing-container.error-page svg {
-        height: 300px;
-        width: 300px;
+        height: 400px;
+        width: 400px;
     }
 
     .landing-container.error-page .content h2 {
-        font-size: 1rem;
+        font-size: 2rem;
     }
     .link-form-container {
         /* margin: 10px; */
