@@ -1455,6 +1455,7 @@ nav.nav h1 {
     }
     .link-info .long-url p {
         font-size: 14px;
+        max-width: 30ch;
     }
     .link-info .clicks {
         font-size: 14px;
