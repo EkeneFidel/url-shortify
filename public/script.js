@@ -92,8 +92,8 @@ loginForm.addEventListener("submit", async (e) => {
             .then((res) => res.json())
             .then((data) => {
                 setTimeout(() => {}, 5000);
-                stopLoad("login");
                 if (data.success === false) {
+                    stopLoad("login");
                     errorMsg[0].style.display = "flex";
                     errorMsg[0].querySelector("p").innerHTML = data.message;
                     setTimeout(() => {
@@ -101,6 +101,7 @@ loginForm.addEventListener("submit", async (e) => {
                         errorMsg[0].querySelector("p").innerHTML = "";
                     }, 2000);
                 } else {
+                    stopLoad("login");
                     let newURL =
                         window.location.protocol +
                         "//" +
