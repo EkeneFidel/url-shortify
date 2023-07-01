@@ -503,8 +503,7 @@ nav.nav h1 {
     transition: all 300ms ease;
 }
 
-.sidebar-item > span,
-.sidebar-item > i {
+.sidebar-item > span {
     user-select: none;
 }
 
