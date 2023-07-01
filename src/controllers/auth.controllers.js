@@ -44,7 +44,7 @@ const signup = async (req, res, next) => {
         await userModel.findOneAndDelete({ _id: user._id });
         await analyticsModel.findOneAndDelete({ userId: user._id });
         await verificationModel.findOneAndDelete({ userId: user._id });
-        return res.json({
+        return res.status(500).json({
             success: false,
             message: error.message,
         });
@@ -113,6 +113,21 @@ const login = async (req, res, next) => {
                 message: "Email has not been verified, check your inbox",
             });
         }
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+};
+
+const logout = async (req, res, next) => {
+    try {
+        req.session.destroy();
+        return res.status(200).json({
+            success: true,
+            message: "Log out successful",
+        });
     } catch (error) {
         return res.status(500).json({
             success: false,
@@ -360,6 +375,7 @@ const renderPasswordChanged = async (req, res, next) => {
 module.exports = {
     signup,
     login,
+    logout,
     changePassword,
     getAuthPage,
     getForgotPasswPage,

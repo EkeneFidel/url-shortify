@@ -442,6 +442,41 @@ nav.nav h1 {
     background-color: #f6f9fa;
 }
 
+.construction {
+    justify-content: flex-start;
+    padding-top: 100px;
+    align-items: center;
+}
+
+.construct-image svg {
+    height: 500px;
+    width: 500px;
+}
+
+.landing-container.error-page svg {
+    height: 400px;
+    width: 400px;
+}
+
+.landing-container.error-page .content {
+    justify-content: center;
+    flex-direction: column;
+    /* padding-top: 20px; */
+    align-items: center;
+}
+
+.landing-container.error-page .content h2 {
+    color: #176b87;
+    font-weight: 500;
+    font-size: 1.7rem;
+}
+
+.construct-image h2 {
+    font-weight: 500;
+    color: #176b87;
+    text-align: center;
+}
+
 .sidebar {
     overflow: hidden;
     height: 100vh;
@@ -1302,6 +1337,19 @@ nav.nav h1 {
     }
     .main-right-content h1 {
         font-size: 16px;
+    }
+
+    .construct-image h2 {
+        font-size: 1.3rem;
+    }
+
+    .landing-container.error-page svg {
+        height: 300px;
+        width: 300px;
+    }
+
+    .landing-container.error-page .content h2 {
+        font-size: 1rem;
     }
     .link-form-container {
         /* margin: 10px; */

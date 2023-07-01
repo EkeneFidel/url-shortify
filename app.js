@@ -110,16 +110,25 @@ app.get("/:urlCode", async (req, res) => {
             await redisClient.del(`analytics:${urlData.userId}`);
             res.redirect(urlData.longUrl);
         } else {
-            res.status(400).send("error");
+            res.render("404page", {
+                isLogged: req.session.isLogged,
+                user: req.session.user,
+            });
         }
     } catch (error) {
-        res.status(400).send("error");
+        res.render("404page", {
+            isLogged: req.session.isLogged,
+            user: req.session.user,
+        });
     }
 });
 
 // Handle errors.
 app.use((req, res, next) => {
-    res.status(400).send("error");
+    res.render("404page", {
+        isLogged: req.session.isLogged,
+        user: req.session.user,
+    });
 });
 
 app.listen(PORT, () => {

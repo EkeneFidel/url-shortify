@@ -2,6 +2,7 @@ const dashboardSidebarItem = document.querySelector("#dashboard");
 const linksSidebarItem = document.querySelector("#links");
 const analyticsSidebarItem = document.querySelector("#analytics");
 const settingsSidebarItem = document.querySelector("#settings");
+const authList = document.querySelector(".auth-list");
 
 const mainLeft = document.querySelector(".main-left");
 const navBar = document.querySelector(".nav-bar");
@@ -12,6 +13,26 @@ logo.addEventListener("click", (e) => {
     if (e.target.closest(".logo")) {
         location.pathname = "/";
     }
+});
+
+authList.querySelector("a").addEventListener("click", async (e) => {
+    await fetch("/auth/logout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+    })
+        .then((res) => res.json())
+        .then((data) => {
+            if (data.success) {
+                let newURL =
+                    window.location.protocol +
+                    "//" +
+                    window.location.host +
+                    "/";
+                location.href = newURL;
+            } else {
+                console.log(data);
+            }
+        });
 });
 
 function goToTab(id) {
