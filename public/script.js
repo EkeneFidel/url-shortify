@@ -95,7 +95,21 @@ loginForm.addEventListener("submit", async (e) => {
                 if (data.success === false) {
                     stopLoad("login");
                     errorMsg[0].style.display = "flex";
-                    errorMsg[0].querySelector("p").innerHTML = data.message;
+                    errorMsg[1].innerHTML = `<svg
+                    class="leafygreen-ui-12snj1w"
+                    height="15"
+                    width="15"
+                    role="img"
+                    aria-label="Warning Icon"
+                    viewBox="0 0 16 16"
+                >
+                    <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M8.8639 2.51357C8.49039 1.82881 7.50961 1.82881 7.1361 2.51357L1.12218 13.5388C0.763263 14.1968 1.23814 15 1.98608 15H14.0139C14.7619 15 15.2367 14.1968 14.8778 13.5388L8.8639 2.51357ZM7 6C7 5.44772 7.44772 5 8 5C8.55228 5 9 5.44772 9 6V10C9 10.5523 8.55228 11 8 11C7.44772 11 7 10.5523 7 10V6ZM9 13C9 13.5523 8.55228 14 8 14C7.44772 14 7 13.5523 7 13C7 12.4477 7.44772 12 8 12C8.55228 12 9 12.4477 9 13Z"
+                        fill="currentColor"
+                    ></path>
+                </svg> <p>"${data.message}"</p>`;
                     setTimeout(() => {
                         errorMsg[0].style.display = "none";
                         errorMsg[0].querySelector("p").innerHTML = "";
@@ -128,15 +142,42 @@ signUpForm.addEventListener("submit", async (e) => {
     if (passw.value !== confirmPassw.value) {
         stopLoad("signup");
         errorMsg[1].style.display = "flex";
-        errorMsg[1].querySelector("p").innerHTML = "Passwords do not match";
+        errorMsg[1].innerHTML = `<svg
+        class="leafygreen-ui-12snj1w"
+        height="15"
+        width="15"
+        role="img"
+        aria-label="Warning Icon"
+        viewBox="0 0 16 16"
+    >
+        <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M8.8639 2.51357C8.49039 1.82881 7.50961 1.82881 7.1361 2.51357L1.12218 13.5388C0.763263 14.1968 1.23814 15 1.98608 15H14.0139C14.7619 15 15.2367 14.1968 14.8778 13.5388L8.8639 2.51357ZM7 6C7 5.44772 7.44772 5 8 5C8.55228 5 9 5.44772 9 6V10C9 10.5523 8.55228 11 8 11C7.44772 11 7 10.5523 7 10V6ZM9 13C9 13.5523 8.55228 14 8 14C7.44772 14 7 13.5523 7 13C7 12.4477 7.44772 12 8 12C8.55228 12 9 12.4477 9 13Z"
+            fill="currentColor"
+        ></path>
+    </svg> <p>Passwords do not match</p>`;
         setTimeout(() => {
             errorMsg[1].style.display = "none";
             errorMsg[1].querySelector("p").innerHTML = "";
         }, 5000);
     } else if (!checkboxSignup.checked) {
         errorMsg[1].style.display = "flex";
-        errorMsg[1].querySelector("p").innerHTML =
-            "Please indicate that you have read and agree to the Terms and Conditions";
+        errorMsg[1].innerHTML = `<svg
+        class="leafygreen-ui-12snj1w"
+        height="15"
+        width="15"
+        role="img"
+        aria-label="Warning Icon"
+        viewBox="0 0 16 16"
+    >
+        <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M8.8639 2.51357C8.49039 1.82881 7.50961 1.82881 7.1361 2.51357L1.12218 13.5388C0.763263 14.1968 1.23814 15 1.98608 15H14.0139C14.7619 15 15.2367 14.1968 14.8778 13.5388L8.8639 2.51357ZM7 6C7 5.44772 7.44772 5 8 5C8.55228 5 9 5.44772 9 6V10C9 10.5523 8.55228 11 8 11C7.44772 11 7 10.5523 7 10V6ZM9 13C9 13.5523 8.55228 14 8 14C7.44772 14 7 13.5523 7 13C7 12.4477 7.44772 12 8 12C8.55228 12 9 12.4477 9 13Z"
+            fill="currentColor"
+        ></path>
+    </svg> <p>Please indicate that you have read and agree to the Terms and Conditions</p>`;
         stopLoad("signup");
         setTimeout(() => {
             errorMsg[1].style.display = "none";
@@ -157,7 +198,21 @@ signUpForm.addEventListener("submit", async (e) => {
                 stopLoad("signup");
                 if (data.success === false) {
                     errorMsg[1].style.display = "flex";
-                    errorMsg[1].querySelector("p").innerHTML = data.message;
+                    errorMsg[1].innerHTML = `<svg
+                    class="leafygreen-ui-12snj1w"
+                    height="15"
+                    width="15"
+                    role="img"
+                    aria-label="Warning Icon"
+                    viewBox="0 0 16 16"
+                >
+                    <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M8.8639 2.51357C8.49039 1.82881 7.50961 1.82881 7.1361 2.51357L1.12218 13.5388C0.763263 14.1968 1.23814 15 1.98608 15H14.0139C14.7619 15 15.2367 14.1968 14.8778 13.5388L8.8639 2.51357ZM7 6C7 5.44772 7.44772 5 8 5C8.55228 5 9 5.44772 9 6V10C9 10.5523 8.55228 11 8 11C7.44772 11 7 10.5523 7 10V6ZM9 13C9 13.5523 8.55228 14 8 14C7.44772 14 7 13.5523 7 13C7 12.4477 7.44772 12 8 12C8.55228 12 9 12.4477 9 13Z"
+                        fill="currentColor"
+                    ></path>
+                </svg> <p>"${data.message}"</p>`;
                     setTimeout(() => {
                         errorMsg[1].style.display = "none";
                         errorMsg[1].querySelector("p").innerHTML = "";
@@ -172,6 +227,7 @@ signUpForm.addEventListener("submit", async (e) => {
                         errorMsg[1].style.display = "none";
                         errorMsg[1].querySelector("p").innerHTML = "";
                     }, 5000);
+                    errorMsg[1].classList.remove("success");
                     userName.value = "";
                     email.value = "";
                     passw.value = "";
