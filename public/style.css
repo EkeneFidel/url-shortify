@@ -1222,7 +1222,7 @@ nav.nav h1 {
     .loader {
         display: none;
         border: 0.35rem solid #3498db; /* Blue */
-        border-bottom: 0.35rem solid #f3f3f3; /* Light grey */
+        border-bottom: 0.35rem solid #fff; /* Light grey */
         border-radius: 50%;
         width: 1.4rem;
         margin-top: 0.58rem;
