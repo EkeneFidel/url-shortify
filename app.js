@@ -63,20 +63,6 @@ app.set("view engine", "ejs");
 app.use(express.static("./public"));
 app.set("views", path.join(__dirname, "/src/views"));
 
-const swaggerUi = require("swagger-ui-express");
-const swaggerDocument = require("./swagger.json");
-const swaggerJsdoc = require("swagger-jsdoc");
-
-const specs = swaggerJsdoc(swaggerDocument);
-
-app.use(
-    "/api-docs",
-    swaggerUi.serve,
-    swaggerUi.setup(specs, {
-        customCssUrl:
-            "https://cdn.jsdelivr.net/npm/swagger-ui-themes@3.0.0/themes/3.x/theme-flattop.css",
-    })
-);
 app.use("/auth", authRouter);
 app.use("/url", verifyToken, urlRouter);
 app.use("/links", verifyToken, linkRouter);
