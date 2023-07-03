@@ -18,6 +18,7 @@ const analyticsRouter = require("./src/routes/analytics.routes");
 const urlRouter = require("./src/routes/url.routes");
 const linkRouter = require("./src/routes/link.routes");
 const emailRouter = require("./src/routes/email.routes");
+const userRouter = require("./src/routes/user.routes");
 const urlModel = require("./src/models/url.model");
 const analyticsModel = require("./src/models/analytics.model");
 const getLocation = require("./src/utils/getLocation");
@@ -62,10 +63,25 @@ app.set("view engine", "ejs");
 app.use(express.static("./public"));
 app.set("views", path.join(__dirname, "/src/views"));
 
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./swagger.json");
+const swaggerJsdoc = require("swagger-jsdoc");
+
+const specs = swaggerJsdoc(swaggerDocument);
+
+app.use(
+    "/api-docs",
+    swaggerUi.serve,
+    swaggerUi.setup(specs, {
+        customCssUrl:
+            "https://cdn.jsdelivr.net/npm/swagger-ui-themes@3.0.0/themes/3.x/theme-flattop.css",
+    })
+);
 app.use("/auth", authRouter);
 app.use("/url", verifyToken, urlRouter);
 app.use("/links", verifyToken, linkRouter);
 app.use("/analytics", verifyToken, analyticsRouter);
+app.use("/users", verifyToken, userRouter);
 app.use("/verify-email", emailRouter);
 app.get("/settings", verifyToken, async (req, res) => {
     res.render("settings", { user: req.user });
@@ -109,12 +125,13 @@ app.get("/:urlCode", async (req, res) => {
             await redisClient.del(`url:${urlData.userId}:${urlData._id}`);
             await redisClient.del(`analytics:${urlData.userId}`);
             res.redirect(urlData.longUrl);
-        } else {
-            res.render("404page", {
-                isLogged: req.session.isLogged,
-                user: req.session.user,
-            });
         }
+        // } else {
+        //     res.render("404page", {
+        //         isLogged: req.session.isLogged,
+        //         user: req.session.user,
+        //     });
+        // }
     } catch (error) {
         res.render("404page", {
             isLogged: req.session.isLogged,

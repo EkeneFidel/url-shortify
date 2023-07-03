@@ -261,7 +261,6 @@ const resendVerificationEmail = async (req, res, next) => {
             verificationToken: verificationToken,
         });
     } catch (error) {
-        console.log(error.message);
         return res.status(500).json({
             success: false,
             message: error.message,
@@ -270,49 +269,56 @@ const resendVerificationEmail = async (req, res, next) => {
 };
 
 const requestPasswordReset = async (req, res, next) => {
-    const { email } = req.body;
-    const user = await userModel.findOne({ email });
+    try {
+        const { email } = req.body;
+        const user = await userModel.findOne({ email });
 
-    if (!user)
-        return res.status(400).json({
-            success: false,
-            message: "user does not exist",
+        if (!user)
+            return res.status(400).json({
+                success: false,
+                message: "user does not exist",
+            });
+
+        let token = await tokenModel.findOne({ userId: user._id });
+        if (token) await token.deleteOne();
+
+        const resetToken = crypto.randomBytes(32).toString("hex");
+        const passwordResetToken = await bcrypt.hash(resetToken, 10);
+
+        await tokenModel.create({
+            userId: user._id,
+            token: passwordResetToken,
+            createdAt: Date.now(),
+            expiresAt: Date.now() + 24 * (60 * 60 * 1000),
         });
 
-    let token = await tokenModel.findOne({ userId: user._id });
-    if (token) await token.deleteOne();
+        const link = `${process.env.BASE_URL}/auth/reset-password?token=${resetToken}&id=${user._id}`;
 
-    const resetToken = crypto.randomBytes(32).toString("hex");
-    const passwordResetToken = await bcrypt.hash(resetToken, 10);
-
-    await tokenModel.create({
-        userId: user._id,
-        token: passwordResetToken,
-        createdAt: Date.now(),
-        expiresAt: Date.now() + 24 * (60 * 60 * 1000),
-    });
-
-    const link = `${process.env.BASE_URL}/auth/reset-password?token=${resetToken}&id=${user._id}`;
-
-    const payload = {
-        subject: "Password Reset Request",
-        message: `<p>Hi ${user.userName},</p>
-        <p>You requested to reset your password.</p>
-        </br><p>This link <b>expires in 24 hours</b></p> </br>
-        <p> Please, click the link below to reset your password</p>
-        <a href="${link}">Reset Password</a>`,
-    };
-    let { success, message } = await sendEmail(user, payload);
-    if (!success) {
+        const payload = {
+            subject: "Password Reset Request",
+            message: `<p>Hi ${user.userName},</p>
+            <p>You requested to reset your password.</p>
+            </br><p>This link <b>expires in 24 hours</b></p> </br>
+            <p> Please, click the link below to reset your password</p>
+            <a href="${link}">Reset Password</a>`,
+        };
+        let { success, message } = await sendEmail(user, payload);
+        if (!success) {
+            return res.status(400).json({
+                success: false,
+                message: "An error occured, email not sent",
+            });
+        }
         return res.status(200).json({
+            success: true,
+            message: "Password reset email sent",
+        });
+    } catch (error) {
+        return res.status(500).json({
             success: false,
-            message: message,
+            message: "An error occured",
         });
     }
-    return res.status(200).json({
-        success: true,
-        message: "Password reset email sent",
-    });
 };
 
 const resetPassword = async (req, res, next) => {

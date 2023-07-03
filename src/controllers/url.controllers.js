@@ -25,6 +25,7 @@ const shortenUrl = async (req, res, next) => {
                 longUrl = `https://${longUrl}`;
             }
             const longUrlExists = await urlModel.findOne({
+                userId: userId,
                 $or: [
                     { longUrl: longUrl },
                     { longUrl: removeTrailingSlash(longUrl) },

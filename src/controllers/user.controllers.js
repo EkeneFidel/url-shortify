@@ -62,7 +62,7 @@ const getAllUsers = async (req, res, next) => {
         });
     } catch (error) {
         return res.status(400).json({
-            message: error.message,
+            message: "An error occured",
             success: false,
         });
     }
@@ -76,6 +76,7 @@ const deleteUser = async (req, res, next) => {
             const deletedUser = await userModel
                 .findByIdAndDelete(id)
                 .select(["-__v", "-password"]);
+            req.session.destroy();
             return res.status(200).json({
                 success: true,
                 message: "user deleted",

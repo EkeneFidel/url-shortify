@@ -11,11 +11,9 @@ const urlSchema = new Schema(
         },
         urlCode: {
             type: String,
-            unique: true,
         },
         longUrl: {
             type: String,
-            unique: true,
             required: true,
         },
         visits: {
