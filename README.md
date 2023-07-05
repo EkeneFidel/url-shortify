@@ -6,7 +6,7 @@ This is a url shortener application <b><b>
 
 [Shortify - Url shortner site](http://shortify-2zur.onrender.com/) <br><br>
 
-[API documentation]([http://shortify-2zur.onrender.com/](https://ekene-chukwurah.stoplight.io/docs/url-shortner/168b86d0320f0-shortify)) <br><br>
+[API documentation](https://ekene-chukwurah.stoplight.io/docs/url-shortner/168b86d0320f0-shortify) <br><br>
 
 ## Technologies used
 
